@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="config_ramp_tree_view_inherit" model="ir.ui.view">
+        <field name="name">config_ramp_tree_view_inherit</field>
+        <field name="model">config.ramp</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="ramp_state=='deactivated'">
+                <field name="ramp_number" string="Ramp number"/>
+                <field name="ramp_state" string="Ramp state"/>
+                <field name="state" string="Ramp position"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="config_ramp_form_view_inherit" model="ir.ui.view">
+        <field name="name">config_ramp_form_view_inherit</field>
+        <field name="model">config.ramp</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="activate" type="object" string="Activate" ramp_state="activated"/>
+                    <button name="deactivate" type="object" string="Deactivate" ramp_state="deactivated"/>
+                    <field name="ramp_state" widget="statusbar" statusbar_visible="activated,deactivated"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="ramp_number" string="Ramp number"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="web_app.ramp_config_action">
+        <field name="name">Ramp configuration</field>
+        <field name="res_model">config.ramp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Config" id="web_app.ramp_config_root" groups="web_app.group_config_managers"/>
+
+    <menuitem name="Ramp configuration"
+              id="web_app.ramp_config_1"
+              sequence="2"
+              parent="web_app.ramp_config_root"
+              action="web_app.ramp_config_action"
+              groups="web_app.group_config_managers"/>
+</odoo>

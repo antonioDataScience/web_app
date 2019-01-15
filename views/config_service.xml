@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="ramp_config_settings_form_view">
+            <field name="name">ramp_config_settings_tree_form_view</field>
+            <field name="model">ramp.config.settings</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Save" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="InitAction_url" placeholder="Init action url"/>
+                            <field name="GetRampState_url" placeholder="Get ramp state url"/>
+                            <field name="AddRamp_url" placeholder="Add ramp url"/>
+                            <field name="RemoveRamp_url" placeholder="Remove ramp url"/>
+                            <field name="recipients" string="Email recipients"/>
+                            <field name="reply_to" string="Reply mail"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="ramp_config_settings_action_window">
+            <field name="name">Service settings</field>
+            <field name="res_model">ramp.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+
+        <menuitem name="Service settings"
+                  id="web_app.ramp_config_root_2"
+                  sequence="3"
+                  parent="web_app.ramp_config_root"
+                  action="ramp_config_settings_action_window"
+                  groups="web_app.group_service_managers"/>
+
+
+    </data>
+</odoo>
+

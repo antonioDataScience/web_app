@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_web_app,Model ramp user,model_web_application,web_app.group_users,1,0,0,0
+manager_web_app,Model ramp user,model_web_application,web_app.group_managers,1,1,1,1
+user_config_ramp,Model config_ramp,model_config_ramp,web_app.group_config_users,1,1,0,0
+manager_config_ramp,Model config_ramp,model_config_ramp,web_app.group_config_managers,1,1,1,1
+user_config_service,Model ramp_config_settings,model_ramp_config_settings,web_app.group_service_users,0,0,0,0
+manager_config_service,Model ramp_config_settings,model_ramp_config_settings,web_app.group_service_managers,1,1,1,1

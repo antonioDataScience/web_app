@@ -1,0 +1,181 @@
+<!-- buduci smo imali velikih problema sa slobodnim vremenom, nismo neke stvari mogli
+efikasnije napraviti, npr. neke klase i u kanban view-u se nalaze stvari koje su nepotrebne, tako da
+se mogu maknuti-->
+
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="web_app_tree_view" model="ir.ui.view">
+            <field name="name">web_app_tree_view</field>
+            <field name="model">web.application</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="ramp_state=='deactivated'">
+                    <field name="name" string="Name"/>
+                    <field name="surname" string="Surname"/>
+                    <field name="ramp_state" string="State"/>
+                    <field name="RAMP_ID" string="Ramp ID"/>
+                    <field name="state" string="Ramp position"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="web_app_form_view" model="ir.ui.view">
+            <field name="name">web_app_form_view</field>
+            <field name="model">web.application</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="current_user" string="current_user" invisible="True"/>
+                                <field name="name" string="Name"/>
+                                <field name="surname" string="Surname"/>
+                            </group>
+                            <group>
+                                <field name="ramp_street_location" string="Street"/>
+                                <field name="ramp_city" string="City"/>
+                                <field name="ramp_country" string="Country"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="user_id" string="User"/>
+                            <field name="RAMP_ID" string="Ramp ID" attrs="{'invisible': [('current_user','=', True)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="web_app_kanban_view" model="ir.ui.view">
+            <field name="name">web_app_kanban_view</field>
+            <field name="model">web.application</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_salesteam_kanban" create="0">
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box" style="width:100%; height:300px;">
+                            <div>
+                                <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                    <div class="o_kanban_card_header">
+                                        <div class="o_kanban_card_header_title">
+                                            <strong style="color: black;">
+                                                <field name="state"
+                                                       attrs="{'invisible': [('ramp_state','=','deactivated')]}"/>
+                                            </strong>
+                                        </div>
+                                        <div class="o_kanban_manage_button_section">
+                                            <field name="ramp_state"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="container o_kanban_card_manage_pane o_invisible">
+                                        <div class="row">
+                                            <div class="col-xs-4 o_kanban_card_manage_section o_kanban_manage_reports">
+                                                <div class="o_kanban_card_manage_title">
+                                                    <span>Reports</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                            <div class="col-xs-8">
+                                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <br/>
+                                        <button class="btn btn-primary" name="new_post_up" type="object"
+                                                style="background-color:red;width:120px;">
+                                            Disable
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <br/>
+                                        <button class="btn btn-primary" name="new_post_down" type="object"
+                                                style="background-color:#4CAF50;width:125px;">
+                                            Enable
+                                        </button>
+                                    </div>
+                                    <div class="o_kanban_card_header">
+                                        <!--<div class="o_kanban_manage_button_section" style="width:100%; height:130px; background-color:red;">-->
+                                        <div class="o_kanban_manage_button_section" style="width:100%; height:150px;">
+                                            <br/>
+                                            <strong style="color: black;">
+                                                <span>Ramp ID:
+                                                    <!--<field name="current_user" string="current_user" invisible="True"/>-->
+                                                    <!--<field name="RAMP_ID" string="Ramp ID" attrs="{'invisible': [('current_user','=', True)]}"/>-->
+                                                    <field name="RAMP_ID" string="Ramp ID"/>
+                                                </span>
+                                                <span>
+                                                    <field name="name"/>
+                                                    <field name="surname"/>
+                                                </span>
+                                                <span>
+                                                    <field name="ramp_street_location"/>
+                                                </span>
+                                                <span>
+                                                    <field name="ramp_city"/>
+                                                </span>
+                                                <span>
+                                                    <field name="ramp_country"/>
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_header">
+                                        <!--<div class="o_kanban_manage_button_section" style="width:100%; height:130px; background-color:red;">-->
+
+                                        <button class="btn btn-primary" name="send_mail" type="object"
+                                                style="background-color:grey;width:50; height:40px;">
+                                            ALERT
+                                        </button>
+                                        <span style="margin-left: 12px;">Press if you spot something unusual.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+
+            </field>
+        </record>
+
+
+        <record id="web_app_graph_view" model="ir.ui.view">
+            <field name="name">web_app_graph_view</field>
+            <field name="model">web.application</field>
+            <field name="arch" type="xml">
+                <graph string="Ramp">
+                    <field name="ramp_id"/>
+                </graph>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="web_app.web_app_action">
+            <field name="name">Web app</field>
+            <field name="res_model">web.application</field>
+            <field name="view_mode">kanban,form,tree,graph</field>
+        </record>
+
+
+        <menuitem name="Ramps" id="web_app.menu_root"/>
+
+        <menuitem name="List of ramps"
+                  id="web_app.menu_1"
+                  sequence="1"
+                  parent="web_app.menu_root"
+                  action="web_app.web_app_action"
+                  groups="web_app.group_users"/>
+
+
+        <!--<menuitem name="Web app" id="web_app.menu_1_list" parent="web_app.menu_1"-->
+
+
+    </data>
+</odoo>

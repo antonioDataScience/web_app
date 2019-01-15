@@ -1,0 +1,36 @@
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install python-pip
+sudo apt-get install python-dateutil python-docutils python-feedparser python-jinja2 python-ldap python-libxslt1 python-lxml python-mako python-mock python-openid python-psycopg2 python-psutil python-pybabel python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-unittest2 python-vatnumber python-vobject python-webdav python-werkzeug python-xlwt python-yaml python-zsi poppler-utils python-pip python-pypdf python-passlib python-decorator gcc python-dev mc bzr python-setuptools python-markupsafe python-reportlab-accel python-zsi python-yaml python-argparse python-openssl python-egenix-mxdatetime python-usb python-serial lptools make python-pydot python-psutil python-paramiko poppler-utils python-pdftools antiword python-requests python-xlsxwriter python-suds python-psycogreen python-ofxparse python-gevent
+sudo apt-get install -y npm
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install -g less less-plugin-clean-css
+sudo apt-get install python-software-properties
+
+sudo nano /etc/apt/sources.list.d/pgdg.list
+		deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add
+sudo apt-get update
+sudo apt-get install postgresql-9.6
+sudo su - postgres
+
+createuser UBUNTU_USER -U postgres -dRSP
+exit
+
+
+sudo apt-get install pgadmin3
+mkdir workspace
+cd workspace
+mkdir odoo10
+cd odoo10
+mkdir server
+cd server
+sudo apt-get install git
+git clone --depth=1 --branch=10.0 https://github.com/odoo/odoo.git
+cd odoo
+./odoo-bin --addons-path=/home/odoo/workspace/odoo10/server/odoo/addons/
+
+podizanje servera s parametrima: -d stojko (baza) -u web_app (upgrade modula) se izvodi na sljedeći način:
+
+/home/workspace/odoo10/server/odoo/$ ./odoo-bin --addons-path=/home/workspace/odoo10/server/odoo/addons/,/home/workspace/odoo10/application/addons/ -d stojko -u web_app
